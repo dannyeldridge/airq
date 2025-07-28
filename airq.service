@@ -1,0 +1,20 @@
+[Unit]
+Description=AirQ Air Quality Dashboard
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/airq
+Environment="PATH=/var/www/airq/venv/bin"
+ExecStart=/var/www/airq/venv/bin/gunicorn --workers 1 --preload --bind 127.0.0.1:5001 -m 007 wsgi:app
+Environment="GUNICORN_WORKER=true"
+Restart=always
+RestartSec=10
+
+# Create data directory
+ExecStartPre=/bin/mkdir -p /var/www/airq/data
+ExecStartPre=/bin/chown www-data:www-data /var/www/airq/data
+
+[Install]
+WantedBy=multi-user.target
