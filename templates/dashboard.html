@@ -7,6 +7,30 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <style>
+      :root {
+        /* Color palette */
+        --alice-blue: #E8F1F2;
+        --celadon: #B3EFB2;
+        --cambridge-blue: #7A9E7E;
+        --brunswick-green: #31493C;
+        --rich-black: #001A23;
+        
+        /* Semantic colors */
+        --primary-bg: var(--alice-blue);
+        --secondary-bg: var(--cambridge-blue);
+        --accent-bg: var(--brunswick-green);
+        --text-primary: var(--rich-black);
+        --text-secondary: var(--brunswick-green);
+        --text-muted: var(--cambridge-blue);
+        --text-on-dark: var(--alice-blue);
+        --border-light: var(--cambridge-blue);
+        --border-accent: var(--brunswick-green);
+        
+        /* Gradients */
+        --bg-gradient: linear-gradient(135deg, var(--alice-blue) 0%, var(--cambridge-blue) 50%, var(--brunswick-green) 100%);
+        --modal-gradient: linear-gradient(135deg, var(--brunswick-green) 0%, var(--cambridge-blue) 100%);
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -15,7 +39,7 @@
 
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--bg-gradient);
         min-height: 100vh;
         padding: 20px;
       }
@@ -27,14 +51,15 @@
 
       .header {
         text-align: center;
-        color: white;
+        color: var(--text-primary);
         margin-bottom: 30px;
       }
 
       .header h1 {
         font-size: 2.5rem;
         margin-bottom: 10px;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 0 2px 4px rgba(0, 26, 35, 0.2);
+        font-weight: 600;
       }
 
       .device-selector {
@@ -42,18 +67,19 @@
       }
 
       .device-selector select {
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(0, 26, 35, 0.1);
+        border: 1px solid var(--border-light);
         border-radius: 8px;
-        color: white;
+        color: var(--text-primary);
         padding: 8px 12px;
         font-size: 1rem;
         cursor: pointer;
+        backdrop-filter: blur(4px);
       }
 
       .device-selector select option {
-        background: #667eea;
-        color: white;
+        background: var(--accent-bg);
+        color: var(--text-on-dark);
       }
 
       .last-updated {
@@ -69,20 +95,21 @@
       }
 
       .metric-card {
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(232, 241, 242, 0.95);
         border-radius: 15px;
         padding: 25px;
         text-align: center;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-        backdrop-filter: blur(4px);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 8px 32px rgba(0, 26, 35, 0.15);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(122, 158, 126, 0.3);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         cursor: pointer;
       }
 
       .metric-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5);
+        box-shadow: 0 12px 40px rgba(49, 73, 60, 0.25);
+        border-color: var(--border-light);
       }
 
       .metric-value {
@@ -93,13 +120,14 @@
 
       .metric-label {
         font-size: 1rem;
-        color: #666;
+        color: var(--text-secondary);
         margin-bottom: 5px;
+        font-weight: 500;
       }
 
       .metric-unit {
         font-size: 0.9rem;
-        color: #888;
+        color: var(--text-muted);
       }
 
       .pm2-ideal {
@@ -161,18 +189,19 @@
       }
 
       .error-message {
-        background: #ffebee;
-        color: #c62828;
+        background: rgba(232, 241, 242, 0.9);
+        color: var(--text-secondary);
         padding: 15px;
         border-radius: 8px;
         margin: 20px 0;
         text-align: center;
-        border-left: 4px solid #c62828;
+        border-left: 4px solid var(--border-light);
+        backdrop-filter: blur(4px);
       }
 
       .error-message code {
-        background: #fff;
-        color: #333;
+        background: rgba(0, 26, 35, 0.1);
+        color: var(--text-primary);
         padding: 8px 12px;
         border-radius: 4px;
         font-family: 'Courier New', monospace;
@@ -186,8 +215,9 @@
       .loading {
         text-align: center;
         padding: 40px;
-        color: white;
+        color: var(--text-primary);
         font-size: 1.2rem;
+        font-weight: 500;
       }
 
       /* Modal styles */
@@ -215,8 +245,8 @@
       }
 
       .modal-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        background: var(--modal-gradient);
+        color: var(--text-on-dark);
         padding: 20px;
         border-radius: 15px 15px 0 0;
         display: flex;
@@ -230,7 +260,7 @@
       }
 
       .close {
-        color: white;
+        color: var(--text-on-dark);
         font-size: 28px;
         font-weight: bold;
         cursor: pointer;
@@ -249,8 +279,8 @@
       }
 
       .time-btn {
-        background: #667eea;
-        color: white;
+        background: var(--secondary-bg);
+        color: var(--text-on-dark);
         border: none;
         padding: 10px 20px;
         margin: 0 5px;
@@ -258,16 +288,17 @@
         cursor: pointer;
         transition: all 0.3s ease;
         font-size: 14px;
+        font-weight: 500;
       }
 
       .time-btn:hover {
-        background: #5a6fd8;
+        background: var(--accent-bg);
         transform: translateY(-2px);
       }
 
       .time-btn.active {
-        background: #4a5bc4;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        background: var(--accent-bg);
+        box-shadow: 0 3px 10px rgba(49, 73, 60, 0.3);
       }
 
       .chart-container {
@@ -279,9 +310,10 @@
       .average-indicator {
         padding: 15px 20px;
         text-align: center;
-        border-top: 1px solid #eee;
+        border-top: 1px solid var(--primary-bg);
         font-size: 16px;
-        color: #666;
+        color: var(--text-secondary);
+        font-weight: 500;
       }
 
       @keyframes fadeIn {
