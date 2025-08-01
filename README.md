@@ -141,3 +141,7 @@ The application consists of:
 - `app.py`: Main Flask application with built-in CLI commands
 - Device adapters for different sensor providers  
 - SQLite database for device configuration and measurements
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
