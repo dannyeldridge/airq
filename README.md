@@ -2,6 +2,10 @@
 
 A web dashboard for monitoring air quality data from multiple sensors.
 
+![Chart View](chart.png)
+
+![Metrics Dashboard](metrics.png)
+
 ## Features
 
 - Real-time air quality monitoring (PM2.5, CO2, temperature, humidity, NOx, TVOC)
